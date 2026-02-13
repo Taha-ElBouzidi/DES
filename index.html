@@ -5,896 +5,239 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evernex Prospection Navigator</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f5f5;
-            min-height: 100vh;
-            padding: 20px;
-            color: #333;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-            color: #333;
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        
-        .header p {
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .content {
-            padding: 30px;
-        }
-        
-        .question {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        
-        .email-template-box {
-            background: #fafafa;
-            border: 1px solid #d0d0d0;
-            border-radius: 6px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        
-        .email-template-box h3 {
-            font-size: 14px;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 12px;
-        }
-        
-        .email-subject {
-            background: white;
-            border: 1px solid #d0d0d0;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 14px;
-            width: 100%;
-            margin-bottom: 10px;
-            font-family: inherit;
-        }
-        
-        .email-body {
-            background: white;
-            border: 1px solid #d0d0d0;
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 14px;
-            width: 100%;
-            min-height: 300px;
-            font-family: inherit;
-            line-height: 1.6;
-            resize: vertical;
-        }
-        
-        .copy-btn {
-            background: #333;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 13px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.2s;
-        }
-        
-        .copy-btn:hover {
-            background: #555;
-        }
-        
-        .copy-btn:active {
-            background: #000;
-        }
-        
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .option-btn {
-            background: white;
-            border: 1px solid #d0d0d0;
-            padding: 14px 18px;
-            border-radius: 6px;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: left;
-            color: #333;
-            font-weight: 500;
-        }
-        
-        .option-btn:hover {
-            border-color: #999;
-            background: #fafafa;
-        }
-        
-        .option-btn:active {
-            transform: scale(0.99);
-        }
-        
-        .result-box {
-            background: #f9f9f9;
-            border: 1px solid #d0d0d0;
-            border-radius: 6px;
-            padding: 25px;
-            margin-top: 20px;
-        }
-        
-        .result-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #1a1a1a;
-        }
-        
-        .result-content {
-            font-size: 14px;
-            line-height: 1.7;
-            color: #333;
-        }
-        
-        .result-content strong {
-            color: #1a1a1a;
-            display: block;
-            margin-top: 14px;
-            margin-bottom: 6px;
-            font-size: 15px;
-        }
-        
-        .result-content ul {
-            margin-left: 20px;
-            margin-top: 8px;
-        }
-        
-        .result-content li {
-            margin: 6px 0;
-        }
-        
-        .template-badge {
-            display: inline-block;
-            background: #333;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 500;
-            margin: 4px 4px 4px 0;
-        }
-        
-        .restart-btn {
-            background: #333;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background 0.2s;
-        }
-        
-        .restart-btn:hover {
-            background: #555;
-        }
-        
-        .restart-btn:active {
-            background: #000;
-        }
-        
-        .breadcrumb {
-            font-size: 13px;
-            color: #666;
-            margin-bottom: 20px;
-            padding: 10px 12px;
-            background: #f5f5f5;
-            border-radius: 4px;
-            border-left: 3px solid #333;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 10px;
-            background: #e0e0e0;
-            color: #333;
-        }
-        
-        .wait-notice {
-            background: #fffef0;
-            border-left: 3px solid #f0ad4e;
-            padding: 12px 16px;
-            margin: 15px 0;
-            font-size: 14px;
-            color: #856404;
-            border-radius: 4px;
-        }
-        
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 20px;
-            }
-            .question {
-                font-size: 16px;
-            }
-            .option-btn {
-                font-size: 14px;
-                padding: 12px 14px;
-            }
-            .content {
-                padding: 20px;
-            }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#f5f5f5; min-height:100vh; padding:16px; color:#333; }
+        .container { max-width:900px; margin:0 auto; background:white; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.08); overflow:hidden; }
+        .header { background:white; border-bottom:1px solid #e0e0e0; padding:24px; text-align:center; }
+        .header h1 { font-size:22px; font-weight:600; margin-bottom:6px; }
+        .header p { color:#888; font-size:13px; }
+        .content { padding:24px; }
+        .breadcrumb { font-size:12px; color:#666; margin-bottom:16px; padding:8px 12px; background:#f5f5f5; border-radius:4px; border-left:3px solid #333; }
+        .question { font-size:17px; font-weight:600; color:#1a1a1a; margin-bottom:16px; line-height:1.5; }
+        .wait-notice { background:#fffef0; border-left:3px solid #e6c200; padding:10px 14px; margin:12px 0; font-size:13px; color:#856404; border-radius:4px; }
+        .tabs { display:flex; border-bottom:1px solid #e0e0e0; margin:16px 0 0; flex-wrap:wrap; gap:2px; }
+        .tab { padding:10px 16px; font-size:13px; font-weight:500; cursor:pointer; border:1px solid #e0e0e0; border-bottom:none; border-radius:6px 6px 0 0; background:#f5f5f5; color:#666; transition:all .2s; }
+        .tab.active { background:white; color:#1a1a1a; border-bottom:1px solid white; margin-bottom:-1px; font-weight:600; }
+        .tab:hover:not(.active) { background:#eee; }
+        .tab-content { display:none; border:1px solid #e0e0e0; border-top:none; border-radius:0 0 6px 6px; padding:20px; background:white; }
+        .tab-content.active { display:block; }
+        .tpl-box { margin-bottom:16px; }
+        .tpl-box h3 { font-size:13px; font-weight:600; color:#555; margin-bottom:8px; }
+        .tpl-subject { background:#fafafa; border:1px solid #d0d0d0; padding:10px; border-radius:4px; font-size:14px; width:100%; margin-bottom:8px; font-family:inherit; }
+        .tpl-body { background:#fafafa; border:1px solid #d0d0d0; padding:12px; border-radius:4px; font-size:14px; width:100%; min-height:280px; font-family:inherit; line-height:1.6; resize:vertical; }
+        .tpl-body.short { min-height:120px; }
+        .tpl-body.tall { min-height:400px; }
+        .btn-row { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+        .copy-btn { background:#333; color:white; border:none; padding:8px 14px; border-radius:4px; font-size:12px; cursor:pointer; transition:background .2s; }
+        .copy-btn:hover { background:#555; }
+        .options { display:flex; flex-direction:column; gap:8px; margin-top:18px; }
+        .option-btn { background:white; border:1px solid #d0d0d0; padding:13px 16px; border-radius:6px; font-size:14px; cursor:pointer; transition:all .15s; text-align:left; color:#333; font-weight:500; }
+        .option-btn:hover { border-color:#999; background:#fafafa; }
+        .result-box { background:#f9f9f9; border:1px solid #d0d0d0; border-radius:6px; padding:24px; margin-top:16px; }
+        .result-title { font-size:17px; font-weight:700; margin-bottom:14px; color:#1a1a1a; }
+        .result-content { font-size:14px; line-height:1.7; color:#333; }
+        .result-content strong { color:#1a1a1a; display:block; margin-top:12px; margin-bottom:4px; font-size:14px; }
+        .result-content ul { margin-left:20px; margin-top:6px; }
+        .result-content li { margin:5px 0; }
+        .status-badge { display:inline-block; padding:6px 14px; border-radius:4px; font-size:13px; font-weight:600; margin-top:10px; background:#e0e0e0; color:#333; }
+        .restart-btn { background:#333; color:white; border:none; padding:11px 22px; border-radius:6px; font-size:14px; font-weight:500; cursor:pointer; margin-top:18px; transition:background .2s; }
+        .restart-btn:hover { background:#555; }
+        @media(max-width:600px) {
+            .header h1 { font-size:19px; }
+            .question { font-size:15px; }
+            .option-btn { font-size:13px; padding:11px 13px; }
+            .content { padding:16px; }
+            .tab { padding:8px 10px; font-size:11px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Evernex Prospection Navigator</h1>
-            <p>Interactive guide with editable email templates</p>
-        </div>
-        
-        <div class="content" id="app">
-            <!-- Content will be injected here by JavaScript -->
-        </div>
+<div class="container">
+    <div class="header">
+        <h1>Evernex Prospection Navigator</h1>
+        <p>Interactive guide · Editable templates · Copy &amp; send</p>
     </div>
-
-    <script>
-        const app = document.getElementById('app');
-        let history = [];
-
-        // Email templates database
-        const emailTemplates = {
-            clevel_email1: {
-                subject: "Reducing IT maintenance costs at [Company Name]",
-                body: `Dear [Name],
-
-I am [Your Name], Global Business Developer at Evernex. I am reaching out to schedule a brief call to explore a potential collaboration between [Company Name] and Evernex.
-
-Evernex is the global leader in Third-Party Maintenance for data center equipment (servers, storage, and network), covering EOL and EOSL hardware across 165+ countries.
-
-We help organizations like yours:
-- Reduce maintenance costs by up to 70% compared to OEM contracts
-- Defer CAPEX by extending hardware lifecycle instead of forced refresh cycles
-- Consolidate vendors under one multivendor contract (HPE, Dell, IBM, Cisco, Huawei, and more)
-
-Would you be available for a 20-minute call this week or next to discuss how we can support [Company Name]?
-
-Looking forward to hearing from you.
-
-Best regards,
-[Your Name]`
-            },
-            clevel_email2: {
-                subject: "Re: Reducing IT maintenance costs at [Company Name]",
-                body: `Dear [Name],
-
-I wanted to follow up on my previous email. I understand your schedule is busy, I'll keep this short.
-
-At Evernex, we help IT leaders move from costly OEM contracts to flexible, cost-efficient maintenance, saving up to 70% while maintaining the same level of service with SLAs up to 4-hour response times.
-
-Would a 15-minute call work for you this week? I'm happy to adjust to your availability.
-
-Best regards,
-[Your Name]`
-            },
-            clevel_email3: {
-                subject: "Re: Reducing IT maintenance costs at [Company Name]",
-                body: `Dear [Name],
-
-I don't want to take up more of your time, so this will be my last message on this topic.
-
-If reducing IT infrastructure costs and extending the lifecycle of your data center equipment is a priority for [Company Name], I'd be happy to connect whenever the timing is right.
-
-Feel free to reach out anytime — I'm here when you need me.
-
-Best regards,
-[Your Name]`
-            },
-            it_email1: {
-                subject: "Extending the life of your data center hardware at [Company Name]",
-                body: `Dear [Name],
-
-I am [Your Name], Global Business Developer at Evernex. I am reaching out because I believe we can support [Company Name]'s IT infrastructure in a meaningful way.
-
-Evernex specializes in Third-Party Maintenance for data center equipment (servers, storage, and network), particularly for EOL and EOSL hardware that OEMs no longer support.
-
-Here's what we bring to the table:
-- Multivendor support under one contract (HPE, Dell EMC, IBM, Cisco, Juniper, Huawei, and more)
-- Customized SLAs, up to 24x7 coverage with 4-hour on-site response (CTR)
-- 800,000+ spare part references across our global stock, with L2 and L3 engineers available
-- 165+ countries covered with local technical teams
-
-Are you the right person to discuss hardware maintenance at [Company Name]? I'd love to schedule a 30-minute call at your convenience.
-
-Looking forward to your reply.
-
-Best regards,
-[Your Name]`
-            },
-            it_email2: {
-                subject: "Re: Extending the life of your data center hardware at [Company Name]",
-                body: `Dear [Name],
-
-Just following up on my previous message. I know IT teams deal with a lot of moving parts, I'll be brief.
-
-If you're currently managing hardware that's approaching or past End of Service Life, Evernex can step in as your single point of contact for multivendor maintenance, with engineers and spare parts ready to go, locally.
-
-Would 15 minutes work this week for a quick intro call?
-
-Best regards,
-[Your Name]`
-            },
-            it_email3: {
-                subject: "Re: Extending the life of your data center hardware at [Company Name]",
-                body: `Dear [Name],
-
-I'll keep this short, I don't want to clutter your inbox.
-
-If maintaining your legacy hardware beyond OEM support ever becomes a priority, Evernex is here. We cover all major brands, in 165+ countries, with SLAs tailored to your needs.
-
-Feel free to reach out when the time is right.
-
-Best regards,
-[Your Name]`
-            },
-            procurement_email1: {
-                subject: "Cost-efficient alternative to OEM maintenance at [Company Name]",
-                body: `Dear [Name],
-
-I am [Your Name], Global Business Developer at Evernex. I am reaching out to explore how we can help [Company Name] optimize its IT maintenance budget.
-
-Evernex is the global leader in Third-Party Maintenance for data center equipment. We offer a cost-efficient alternative to OEM contracts, helping companies save up to 70% on maintenance for servers, storage, and network equipment.
-
-Key advantages for your procurement:
-- One contract, multiple vendors (HPE, Dell, IBM, Cisco, Huawei, Juniper, and more under a single agreement)
-- CAPEX deferral, extend hardware lifecycle instead of forced OEM refresh cycles
-- OPEX reduction, flat, predictable maintenance costs
-- Certified parts with 1-year warranty, ISO 9001 certified processes
-
-Could we schedule a brief call this week to discuss how Evernex can support [Company Name]'s procurement strategy?
-
-Best regards,
-[Your Name]`
-            },
-            procurement_email2: {
-                subject: "Re: Cost-efficient alternative to OEM maintenance at [Company Name]",
-                body: `Dear [Name],
-
-Following up on my previous email. I understand procurement timelines can be complex, just wanted to make sure this was on your radar.
-
-In short: Evernex can help [Company Name] reduce IT hardware maintenance costs by up to 70% vs. OEM, with the same (or better) SLAs, all under one consolidated contract.
-
-Happy to share references and case studies on a quick call. When would work for you?
-
-Best regards,
-[Your Name]`
-            },
-            procurement_email3: {
-                subject: "Re: Cost-efficient alternative to OEM maintenance at [Company Name]",
-                body: `Dear [Name],
-
-Last follow-up from my side. If optimizing IT maintenance spend is on [Company Name]'s agenda, I'd be glad to reconnect at any time.
-
-We've helped companies save millions by moving from OEM to Third-Party Maintenance, and I believe we can do the same for you.
-
-My door is always open.
-
-Best regards,
-[Your Name]`
-            },
-            twotier_email1: {
-                subject: "Partnership opportunity to increase your margins with Evernex",
-                body: `Hi [Name],
-
-I am [Your Name], Global Business Developer at Evernex. I am reaching out to discuss a potential partnership between [Company Name] and Evernex.
-
-Evernex offers Third-Party Maintenance for data center hardware (servers, storage, network) in 165+ countries. Our services are up to 70% more cost-efficient than OEM contracts on EOL and EOSL equipment, which means higher profit margins on your services when you resell to your end customers.
-
-What we offer as a partner:
-- Multivendor coverage (HPE, Dell, IBM, Cisco, Huawei, Juniper, and more)
-- Flexible SLAs, up to 24x7 with 4-hour on-site response
-- Global stock of 800,000+ certified spare parts
-- Win-win model, you focus on your clients, we handle the maintenance
-
-Would you be available for a brief call this week to explore how a collaboration could benefit [Company Name]'s clients?
-
-Looking forward to connecting.
-
-Best regards,
-[Your Name]`
-            },
-            twotier_email2: {
-                subject: "Re: Partnership opportunity to increase your margins with Evernex",
-                body: `Hi [Name],
-
-Quick follow-up on my previous message.
-
-Many IT resellers and service providers partner with Evernex to offer their clients cost-efficient hardware maintenance, while increasing their own margins. We handle the technical side (engineers, spare parts, SLAs), you manage the client relationship.
-
-Would a quick 15-minute call work this week?
-
-Best regards,
-[Your Name]`
-            },
-            twotier_email3: {
-                subject: "Re: Partnership opportunity to increase your margins with Evernex",
-                body: `Hi [Name],
-
-I'll keep this brief, if expanding your service offering with a cost-efficient TPM solution is something [Company Name] is interested in, I'd be happy to reconnect anytime.
-
-We're already partnering with resellers and integrators globally. When the timing is right for you, I'm here.
-
-Best regards,
-[Your Name]`
-            }
-        };
-
-        // Flowchart data structure
-        const flowchart = {
-            start: {
-                question: "Who is your prospect?",
-                breadcrumb: "Start",
-                options: [
-                    { text: "End User - C-Level (CEO, CIO, CTO, CFO)", next: "clevel_email1" },
-                    { text: "End User - IT Decision Maker (VP IT, IT Manager, Infrastructure)", next: "it_email1" },
-                    { text: "End User - Procurement (Head of Procurement, IT Sourcing)", next: "procurement_email1" },
-                    { text: "2-Tier - Sales/Account Managers", next: "twotier_email1" }
-                ]
-            },
-            
-            // C-LEVEL PATH
-            clevel_email1: {
-                question: "Send this email and wait 3-5 business days. Did they respond?",
-                breadcrumb: "C-Level → Email 1",
-                template: "clevel_email1",
-                waitTime: "3-5 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED - wants to schedule meeting", next: "meeting_booked" },
-                    { text: "⏰ YES, BUT NOT NOW - interested but timing is off", next: "pipeline_not_now" },
-                    { text: "📧 YES, SEND INFO - wants more information first", next: "send_info_clevel" },
-                    { text: "👤 YES, WRONG PERSON - I'm not the right contact", next: "wrong_person" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "clevel_email2" }
-                ]
-            },
-            
-            clevel_email2: {
-                question: "Send this follow-up email and wait 5-7 days. Did they respond?",
-                breadcrumb: "C-Level → Email 2",
-                template: "clevel_email2",
-                waitTime: "5-7 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED", next: "meeting_booked" },
-                    { text: "⏰ YES, BUT NOT NOW", next: "pipeline_not_now" },
-                    { text: "📧 YES, SEND INFO", next: "send_info_clevel" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "clevel_email3" }
-                ]
-            },
-            
-            clevel_email3: {
-                question: "Send this final email and wait 5-7 days. Did they respond?",
-                breadcrumb: "C-Level → Email 3 (Final)",
-                template: "clevel_email3",
-                waitTime: "5-7 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED", next: "meeting_booked" },
-                    { text: "⏰ YES, BUT NOT NOW", next: "pipeline_not_now" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "cold_3months" }
-                ]
-            },
-
-            // IT DECISION MAKER PATH
-            it_email1: {
-                question: "Send this email and wait 3-5 business days. Did they respond?",
-                breadcrumb: "IT Decision Maker → Email 1",
-                template: "it_email1",
-                waitTime: "3-5 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED - ready for technical call", next: "meeting_booked" },
-                    { text: "⏰ YES, BUT NOT NOW", next: "pipeline_not_now" },
-                    { text: "📧 YES, SEND INFO", next: "send_info_it" },
-                    { text: "👤 YES, WRONG PERSON", next: "wrong_person" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "it_email2" }
-                ]
-            },
-            
-            it_email2: {
-                question: "Send this follow-up email and wait 5-7 days. Did they respond?",
-                breadcrumb: "IT Decision Maker → Email 2",
-                template: "it_email2",
-                waitTime: "5-7 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED", next: "meeting_booked" },
-                    { text: "📧 YES, SEND INFO", next: "send_info_it" },
-                    { text: "⏰ YES, BUT NOT NOW", next: "pipeline_not_now" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "it_email3" }
-                ]
-            },
-            
-            it_email3: {
-                question: "Send this final email and wait 5-7 days. Did they respond?",
-                breadcrumb: "IT Decision Maker → Email 3 (Final)",
-                template: "it_email3",
-                waitTime: "5-7 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED", next: "meeting_booked" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "cold_3months" }
-                ]
-            },
-
-            // PROCUREMENT PATH
-            procurement_email1: {
-                question: "Send this email and wait 3-5 business days. Did they respond?",
-                breadcrumb: "Procurement → Email 1",
-                template: "procurement_email1",
-                waitTime: "3-5 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED - wants to review contract details", next: "meeting_booked" },
-                    { text: "⏰ YES, BUT NOT NOW", next: "pipeline_not_now" },
-                    { text: "📧 YES, SEND INFO", next: "send_info_procurement" },
-                    { text: "👤 YES, WRONG PERSON", next: "wrong_person" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "procurement_email2" }
-                ]
-            },
-            
-            procurement_email2: {
-                question: "Send this follow-up email and wait 5-7 days. Did they respond?",
-                breadcrumb: "Procurement → Email 2",
-                template: "procurement_email2",
-                waitTime: "5-7 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED", next: "meeting_booked" },
-                    { text: "📧 YES, SEND INFO", next: "send_info_procurement" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "procurement_email3" }
-                ]
-            },
-            
-            procurement_email3: {
-                question: "Send this final email and wait 5-7 days. Did they respond?",
-                breadcrumb: "Procurement → Email 3 (Final)",
-                template: "procurement_email3",
-                waitTime: "5-7 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED", next: "meeting_booked" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "cold_3months" }
-                ]
-            },
-
-            // 2-TIER PATH
-            twotier_email1: {
-                question: "Send this email and wait 3-5 business days. Did they respond?",
-                breadcrumb: "2-Tier Sales → Email 1",
-                template: "twotier_email1",
-                waitTime: "3-5 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED - wants partnership intro call", next: "meeting_booked" },
-                    { text: "📧 YES, SEND INFO - wants partner program details", next: "send_info_twotier" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "twotier_email2" }
-                ]
-            },
-            
-            twotier_email2: {
-                question: "Send this follow-up email and wait 5-7 days. Did they respond?",
-                breadcrumb: "2-Tier Sales → Email 2",
-                template: "twotier_email2",
-                waitTime: "5-7 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED", next: "meeting_booked" },
-                    { text: "📧 YES, SEND INFO", next: "send_info_twotier" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "twotier_email3" }
-                ]
-            },
-            
-            twotier_email3: {
-                question: "Send this final email and wait 5-7 days. Did they respond?",
-                breadcrumb: "2-Tier Sales → Email 3 (Final)",
-                template: "twotier_email3",
-                waitTime: "5-7 business days",
-                options: [
-                    { text: "✅ YES, INTERESTED", next: "meeting_booked" },
-                    { text: "❌ NO, NOT INTERESTED", next: "closed_lost" },
-                    { text: "🔇 NO RESPONSE", next: "cold_3months" }
-                ]
-            },
-
-            // RESULT ENDPOINTS
-            meeting_booked: {
-                result: true,
-                status: "✅ MEETING BOOKED",
-                title: "Success! Meeting Booked",
-                content: `
-                    <strong>Immediate Actions:</strong>
-                    <ul>
-                        <li>Send calendar invite immediately</li>
-                        <li>Send meeting confirmation email</li>
-                        <li>Set reminder: 24 hours before meeting</li>
-                        <li>Set reminder: 1 hour before meeting</li>
-                    </ul>
-                    
-                    <strong>Update CRM:</strong> Status = MEETING BOOKED
-                    
-                    <strong>Next Steps:</strong>
-                    <ul>
-                        <li>Conduct meeting and take detailed notes</li>
-                        <li>Get BOQ (Bill of Quantity) if possible</li>
-                        <li>Send Minutes of Meeting (MoM) within 24 hours</li>
-                    </ul>
-                `
-            },
-            
-            pipeline_not_now: {
-                result: true,
-                status: "⏰ PIPELINE",
-                title: "Pipeline - Follow Up Later",
-                content: `
-                    <strong>Immediate Actions:</strong>
-                    <ul>
-                        <li>Ask: "When should I follow up?"</li>
-                        <li>Set reminder in CRM for agreed date</li>
-                        <li>Note reason for delay</li>
-                    </ul>
-                    
-                    <strong>Update CRM:</strong> Status = PIPELINE
-                `
-            },
-            
-            send_info_clevel: {
-                result: true,
-                status: "📧 PIPELINE",
-                title: "Send Information - C-Level",
-                content: `
-                    <strong>Immediate Actions:</strong>
-                    <ul>
-                        <li>Send case study + Evernex value proposition</li>
-                        <li>Include: Cost savings data, CAPEX/OPEX benefits</li>
-                        <li>Set follow-up reminder for 3 days</li>
-                    </ul>
-                    
-                    <strong>Update CRM:</strong> Status = PIPELINE (Info Sent)
-                `
-            },
-            
-            send_info_it: {
-                result: true,
-                status: "📧 PIPELINE",
-                title: "Send Information - IT",
-                content: `
-                    <strong>Immediate Actions:</strong>
-                    <ul>
-                        <li>Send case study + technical pricing overview</li>
-                        <li>Include: SLA options, multivendor coverage</li>
-                        <li>Set follow-up reminder for 3 days</li>
-                    </ul>
-                    
-                    <strong>Update CRM:</strong> Status = PIPELINE (Info Sent)
-                `
-            },
-            
-            send_info_procurement: {
-                result: true,
-                status: "📧 PIPELINE",
-                title: "Send Information - Procurement",
-                content: `
-                    <strong>Immediate Actions:</strong>
-                    <ul>
-                        <li>Send cost comparison vs OEM + case study</li>
-                        <li>Include: ISO certifications, consolidation benefits</li>
-                        <li>Set follow-up reminder for 3 days</li>
-                    </ul>
-                    
-                    <strong>Update CRM:</strong> Status = PIPELINE (Info Sent)
-                `
-            },
-            
-            send_info_twotier: {
-                result: true,
-                status: "📧 PIPELINE",
-                title: "Send Information - 2-Tier Partner",
-                content: `
-                    <strong>Immediate Actions:</strong>
-                    <ul>
-                        <li>Send partner program deck</li>
-                        <li>Send margin calculator</li>
-                        <li>Set follow-up reminder for 3 days</li>
-                    </ul>
-                    
-                    <strong>Update CRM:</strong> Status = PIPELINE (Info Sent)
-                `
-            },
-            
-            wrong_person: {
-                result: true,
-                status: "🔄 REDIRECT",
-                title: "Wrong Person - Get Referral",
-                content: `
-                    <strong>Immediate Actions:</strong>
-                    <ul>
-                        <li>Ask: "Who should I speak with about this?"</li>
-                        <li>Request introduction or direct contact info</li>
-                        <li>Thank them for their help</li>
-                    </ul>
-                    
-                    <strong>Next Steps:</strong> Start over with correct persona path
-                `
-            },
-            
-            cold_3months: {
-                result: true,
-                status: "❄️ COLD",
-                title: "Cold - Re-engage in 3 Months",
-                content: `
-                    <strong>Immediate Actions:</strong>
-                    <ul>
-                        <li>Set reminder in CRM for 3 months from today</li>
-                        <li>Note all contact attempts made</li>
-                        <li>Move to COLD status</li>
-                    </ul>
-                    
-                    <strong>In 3 Months:</strong>
-                    Start fresh with Email 1 again
-                `
-            },
-            
-            closed_lost: {
-                result: true,
-                status: "❌ CLOSED - LOST",
-                title: "Closed - Lost",
-                content: `
-                    <strong>Immediate Actions:</strong>
-                    <ul>
-                        <li>Ask: "May I ask why?" (gather feedback)</li>
-                        <li>Note reason in CRM</li>
-                        <li>Thank them for their time</li>
-                    </ul>
-                    
-                    <strong>Update CRM:</strong> Status = CLOSED - LOST
-                    
-                    <strong>Set Reminder:</strong> Re-engage in 6 months
-                `
-            }
-        };
-
-        function copyEmail() {
-            const subject = document.getElementById('emailSubject').value;
-            const body = document.getElementById('emailBody').value;
-            const fullEmail = `Subject: ${subject}\n\n${body}`;
-            
-            navigator.clipboard.writeText(fullEmail).then(() => {
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = '✓ Copied!';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
-            });
-        }
-
-        function render(nodeId) {
-            const node = flowchart[nodeId];
-            if (!node) return;
-
-            history.push(nodeId);
-
-            let html = '';
-            
-            // Breadcrumb
-            if (node.breadcrumb) {
-                html += `<div class="breadcrumb">📍 ${node.breadcrumb}</div>`;
-            }
-
-            if (node.result) {
-                // Result node
-                html += `
-                    <div class="result-box">
-                        <div class="result-title">${node.title}</div>
-                        <div class="result-content">
-                            ${node.content}
-                            <div class="status-badge">${node.status}</div>
-                        </div>
-                    </div>
-                    <button class="restart-btn" onclick="restart()">🔄 Start New Prospection</button>
-                `;
-            } else {
-                // Question node with optional email template
-                html += `<div class="question">${node.question}</div>`;
-                
-                // Show email template if available
-                if (node.template && emailTemplates[node.template]) {
-                    const template = emailTemplates[node.template];
-                    html += `
-                        <div class="email-template-box">
-                            <h3>📧 Email Template (editable)</h3>
-                            <input type="text" class="email-subject" id="emailSubject" value="${template.subject}">
-                            <textarea class="email-body" id="emailBody">${template.body}</textarea>
-                            <button class="copy-btn" onclick="copyEmail()">📋 Copy Email</button>
-                        </div>
-                    `;
-                    
-                    if (node.waitTime) {
-                        html += `<div class="wait-notice">⏰ Wait ${node.waitTime} after sending</div>`;
-                    }
-                }
-                
-                html += `<div class="options">`;
-                node.options.forEach(option => {
-                    html += `
-                        <button class="option-btn" onclick="navigate('${option.next}')">
-                            ${option.text}
-                        </button>
-                    `;
-                });
-                html += `</div>`;
-                
-                if (history.length > 1) {
-                    html += `<button class="restart-btn" onclick="restart()">🔄 Start Over</button>`;
-                }
-            }
-
-            app.innerHTML = html;
-        }
-
-        function navigate(nodeId) {
-            render(nodeId);
-            window.scrollTo(0, 0);
-        }
-
-        function restart() {
-            history = [];
-            render('start');
-            window.scrollTo(0, 0);
-        }
-
-        // Initialize
-        render('start');
-    </script>
+    <div class="content" id="app"></div>
+</div>
+<script>
+const A=document.getElementById('app');let hist=[],P='';
+const T={
+clevel_email1:{subject:"Reducing IT maintenance costs at [Company Name]",body:"Dear [Name],\n\nI am [Your Name], Global Business Developer at Evernex. I am reaching out to schedule a brief call to explore a potential collaboration between [Company Name] and Evernex.\n\nEvernex is the global leader in Third-Party Maintenance for data center equipment (servers, storage, and network), covering EOL and EOSL hardware across 165+ countries.\n\nWe help organizations like yours:\n- Reduce maintenance costs by up to 70% compared to OEM contracts\n- Defer CAPEX by extending hardware lifecycle instead of forced refresh cycles\n- Consolidate vendors under one multivendor contract (HPE, Dell, IBM, Cisco, Huawei, and more)\n\nWould you be available for a 20-minute call this week or next to discuss how we can support [Company Name]?\n\nLooking forward to hearing from you.\n\nBest regards,\n[Your Name]"},
+clevel_email2:{subject:"Re: Reducing IT maintenance costs at [Company Name]",body:"Dear [Name],\n\nI wanted to follow up on my previous email. I understand your schedule is busy, I'll keep this short.\n\nAt Evernex, we help IT leaders move from costly OEM contracts to flexible, cost-efficient maintenance, saving up to 70% while maintaining the same level of service with SLAs up to 4-hour response times.\n\nWould a 15-minute call work for you this week? I'm happy to adjust to your availability.\n\nBest regards,\n[Your Name]"},
+clevel_email3:{subject:"Re: Reducing IT maintenance costs at [Company Name]",body:"Dear [Name],\n\nI don't want to take up more of your time, so this will be my last message on this topic.\n\nIf reducing IT infrastructure costs and extending the lifecycle of your data center equipment is a priority for [Company Name], I'd be happy to connect whenever the timing is right.\n\nFeel free to reach out anytime \u2014 I'm here when you need me.\n\nBest regards,\n[Your Name]"},
+it_email1:{subject:"Extending the life of your data center hardware at [Company Name]",body:"Dear [Name],\n\nI am [Your Name], Global Business Developer at Evernex. I am reaching out because I believe we can support [Company Name]'s IT infrastructure in a meaningful way.\n\nEvernex specializes in Third-Party Maintenance for data center equipment (servers, storage, and network), particularly for EOL and EOSL hardware that OEMs no longer support.\n\nHere's what we bring to the table:\n- Multivendor support under one contract (HPE, Dell EMC, IBM, Cisco, Juniper, Huawei, and more)\n- Customized SLAs, up to 24x7 coverage with 4-hour on-site response (CTR)\n- 800,000+ spare part references across our global stock, with L2 and L3 engineers available\n- 165+ countries covered with local technical teams\n\nAre you the right person to discuss hardware maintenance at [Company Name]? I'd love to schedule a 30-minute call at your convenience.\n\nLooking forward to your reply.\n\nBest regards,\n[Your Name]"},
+it_email2:{subject:"Re: Extending the life of your data center hardware at [Company Name]",body:"Dear [Name],\n\nJust following up on my previous message. I know IT teams deal with a lot of moving parts, I'll be brief.\n\nIf you're currently managing hardware that's approaching or past End of Service Life, Evernex can step in as your single point of contact for multivendor maintenance, with engineers and spare parts ready to go, locally.\n\nWould 15 minutes work this week for a quick intro call?\n\nBest regards,\n[Your Name]"},
+it_email3:{subject:"Re: Extending the life of your data center hardware at [Company Name]",body:"Dear [Name],\n\nI'll keep this short, I don't want to clutter your inbox.\n\nIf maintaining your legacy hardware beyond OEM support ever becomes a priority, Evernex is here. We cover all major brands, in 165+ countries, with SLAs tailored to your needs.\n\nFeel free to reach out when the time is right.\n\nBest regards,\n[Your Name]"},
+proc_email1:{subject:"Cost-efficient alternative to OEM maintenance at [Company Name]",body:"Dear [Name],\n\nI am [Your Name], Global Business Developer at Evernex. I am reaching out to explore how we can help [Company Name] optimize its IT maintenance budget.\n\nEvernex is the global leader in Third-Party Maintenance for data center equipment. We offer a cost-efficient alternative to OEM contracts, helping companies save up to 70% on maintenance for servers, storage, and network equipment.\n\nKey advantages for your procurement:\n- One contract, multiple vendors (HPE, Dell, IBM, Cisco, Huawei, Juniper, and more under a single agreement)\n- CAPEX deferral, extend hardware lifecycle instead of forced OEM refresh cycles\n- OPEX reduction, flat, predictable maintenance costs\n- Certified parts with 1-year warranty, ISO 9001 certified processes\n\nCould we schedule a brief call this week to discuss how Evernex can support [Company Name]'s procurement strategy?\n\nBest regards,\n[Your Name]"},
+proc_email2:{subject:"Re: Cost-efficient alternative to OEM maintenance at [Company Name]",body:"Dear [Name],\n\nFollowing up on my previous email. I understand procurement timelines can be complex, just wanted to make sure this was on your radar.\n\nIn short: Evernex can help [Company Name] reduce IT hardware maintenance costs by up to 70% vs. OEM, with the same (or better) SLAs, all under one consolidated contract.\n\nHappy to share references and case studies on a quick call. When would work for you?\n\nBest regards,\n[Your Name]"},
+proc_email3:{subject:"Re: Cost-efficient alternative to OEM maintenance at [Company Name]",body:"Dear [Name],\n\nLast follow-up from my side. If optimizing IT maintenance spend is on [Company Name]'s agenda, I'd be glad to reconnect at any time.\n\nWe've helped companies save millions by moving from OEM to Third-Party Maintenance, and I believe we can do the same for you.\n\nMy door is always open.\n\nBest regards,\n[Your Name]"},
+twotier_email1:{subject:"Partnership opportunity to increase your margins with Evernex",body:"Hi [Name],\n\nI am [Your Name], Global Business Developer at Evernex. I am reaching out to discuss a potential partnership between [Company Name] and Evernex.\n\nEvernex offers Third-Party Maintenance for data center hardware (servers, storage, network) in 165+ countries. Our services are up to 70% more cost-efficient than OEM contracts on EOL and EOSL equipment, which means higher profit margins on your services when you resell to your end customers.\n\nWhat we offer as a partner:\n- Multivendor coverage (HPE, Dell, IBM, Cisco, Huawei, Juniper, and more)\n- Flexible SLAs, up to 24x7 with 4-hour on-site response\n- Global stock of 800,000+ certified spare parts\n- Win-win model, you focus on your clients, we handle the maintenance\n\nWould you be available for a brief call this week to explore how a collaboration could benefit [Company Name]'s clients?\n\nLooking forward to connecting.\n\nBest regards,\n[Your Name]"},
+twotier_email2:{subject:"Re: Partnership opportunity to increase your margins with Evernex",body:"Hi [Name],\n\nQuick follow-up on my previous message.\n\nMany IT resellers and service providers partner with Evernex to offer their clients cost-efficient hardware maintenance, while increasing their own margins. We handle the technical side (engineers, spare parts, SLAs), you manage the client relationship.\n\nWould a quick 15-minute call work this week?\n\nBest regards,\n[Your Name]"},
+twotier_email3:{subject:"Re: Partnership opportunity to increase your margins with Evernex",body:"Hi [Name],\n\nI'll keep this brief, if expanding your service offering with a cost-efficient TPM solution is something [Company Name] is interested in, I'd be happy to reconnect anytime.\n\nWe're already partnering with resellers and integrators globally. When the timing is right for you, I'm here.\n\nBest regards,\n[Your Name]"},
+li_conn_eu:{body:"Hi [Name], I'm [Your Name] from Evernex. We help companies like [Company Name] reduce IT maintenance costs by up to 70% through Third-Party Maintenance for data center equipment. Would love to connect!"},
+li_conn_2t:{body:"Hi [Name], I'm reaching out to explore a potential partnership between [Company Name] and Evernex. We help resellers increase margins with cost-efficient TPM services. Let's connect!"},
+li_dm_cl:{body:"Hi [Name],\n\nThanks for connecting! I wanted to reach out because Evernex helps companies like [Company Name] significantly reduce IT infrastructure costs.\n\nWe specialize in Third-Party Maintenance for EOL and EOSL data center equipment (servers, storage, network), helping organizations save up to 70% vs. OEM contracts while deferring CAPEX.\n\nWe work with clients like Orange, American Express, and TotalEnergies across 165+ countries.\n\nWould you be open to a quick 15-minute call to explore how we could support [Company Name]?\n\nBest regards,\n[Your Name]"},
+li_dm_it:{body:"Hi [Name],\n\nThanks for connecting! I work with IT teams to extend the life of their data center hardware beyond what OEMs support.\n\nEvernex provides multivendor maintenance for servers, storage, and network equipment (HPE, Dell, IBM, Cisco, Huawei, etc.), with customized SLAs, 800,000+ spare parts, and L2/L3 engineers available globally.\n\nIf you're managing EOL or EOSL hardware, I'd love to share how we help teams like yours keep infrastructure running smoothly.\n\nOpen to a quick call?\n\nBest,\n[Your Name]"},
+li_dm_pr:{body:"Hi [Name],\n\nThanks for connecting! I wanted to introduce Evernex, we help procurement teams optimize IT maintenance budgets.\n\nWe provide Third-Party Maintenance as a cost-efficient alternative to OEM contracts, saving companies up to 70% on servers, storage, and network equipment, with ISO 9001 certified processes and 1-year warranty on all parts.\n\nCompanies like Capgemini, BNP Paribas, and Dubai Customs trust us for their multivendor maintenance needs.\n\nWould you be open to a brief call to discuss how Evernex could support [Company Name]'s procurement strategy?\n\nBest regards,\n[Your Name]"},
+li_dm_2t:{body:"Hi [Name],\n\nThanks for connecting! I'm reaching out because Evernex partners with IT resellers and service providers like [Company Name] to help increase margins.\n\nWe offer Third-Party Maintenance for data center equipment in 165+ countries, up to 70% more cost-efficient than OEM, which means higher profitability when you offer it to your clients.\n\nWe handle the technical side (engineers, SLAs, spare parts), you manage the client relationship.\n\nOpen to a quick call to explore a partnership?\n\nBest,\n[Your Name]"},
+li_voice_eu:{body:"\"Hi [Name], this is [Your Name] from Evernex. I wanted to reach out because we help companies like [Company Name] save up to 70% on IT maintenance costs for their data center equipment, servers, storage, and network, especially for EOL and EOSL hardware. We work with clients like Orange and TotalEnergies across 165+ countries. I'd love to connect for a quick call to see if there's a fit. Thanks, and have a great day!\""},
+li_voice_2t:{body:"\"Hi [Name], [Your Name] here from Evernex. I'm reaching out to explore a potential partnership with [Company Name]. We provide Third-Party Maintenance for data center equipment in 165+ countries, and we partner with resellers to help them increase their margins by offering cost-efficient TPM to their clients. Would love to have a quick conversation. Talk soon!\""},
+rem_cl:{subject:"Reminder: Meeting tomorrow at [Time] \u2014 Evernex x [Company Name]",body:"Dear [Name],\n\nI'm looking forward to our meeting tomorrow:\n\nMeeting Details:\n- Date: [Day, Month Date, Year]\n- Time: [Time + Timezone]\n- Duration: 20-30 minutes\n- Format: [Video call / In-person at Location]\n- Meeting Link: [Insert Link]\n\nAgenda:\n- Brief introduction to Evernex and our Third-Party Maintenance offering\n- Understanding [Company Name]'s current IT maintenance strategy and OEM contracts\n- Exploring potential cost savings (CAPEX deferral and OPEX reduction)\n- Discussing multivendor coverage options and SLA flexibility\n- Next steps and timeline\n\nOptional Preparation:\nIf available, it would be helpful to know:\n- Your current data center hardware refresh timeline\n- Any upcoming OEM contract renewals\n\nIf you need to reschedule or have any questions before our call, please let me know. Otherwise, I'll talk to you tomorrow!\n\nBest regards,\n[Your Name]\nEvernex\n[Your Title]\n[Email] | [Phone]"},
+rem_it:{subject:"Reminder: Technical call tomorrow at [Time] \u2014 Evernex x [Company Name]",body:"Hi [Name],\n\nLooking forward to our technical discussion tomorrow:\n\nMeeting Details:\n- Date: [Day, Month Date, Year]\n- Time: [Time + Timezone]\n- Duration: 30 minutes\n- Format: [Video call / In-person at Location]\n- Meeting Link: [Insert Link]\n\nAgenda:\n- Overview of Evernex's Third-Party Maintenance capabilities\n- Discussion of your current hardware environment (EOL/EOSL equipment, brands, models)\n- Technical requirements: SLA options (24x7, 4-hour CTR, NBD, etc.)\n- Spare parts availability and L2/L3 engineering support\n- Multivendor coverage (HPE, Dell, IBM, Cisco, Juniper, Huawei, etc.)\n- Q&A and next steps\n\nHelpful to Have Ready (if available):\n- List of current data center hardware (servers, storage, network)\n- Current maintenance provider(s) and SLA requirements\n- Any specific challenges with OEM support or EOL/EOSL equipment\n\nIf you need to reschedule, just let me know. Otherwise, see you tomorrow!\n\nBest regards,\n[Your Name]\nEvernex\n[Your Title]\n[Email] | [Phone]"},
+rem_pr:{subject:"Reminder: Call tomorrow at [Time] \u2014 Evernex x [Company Name]",body:"Dear [Name],\n\nI'm looking forward to our discussion tomorrow:\n\nMeeting Details:\n- Date: [Day, Month Date, Year]\n- Time: [Time + Timezone]\n- Duration: 20-30 minutes\n- Format: [Video call / In-person at Location]\n- Meeting Link: [Insert Link]\n\nAgenda:\n- Introduction to Evernex and our Third-Party Maintenance offering\n- Understanding [Company Name]'s current IT maintenance contracts and procurement process\n- Discussing cost savings opportunities (up to 70% vs. OEM contracts)\n- Multivendor consolidation under one agreement\n- CAPEX deferral and OPEX reduction through hardware lifecycle extension\n- Certification and compliance (ISO 9001, ISO 14001, ISO 27001)\n- Next steps: BOQ (Bill of Quantity) and proposal timeline\n\nHelpful to Have Ready (if available):\n- Current OEM maintenance contract details (spend, renewal dates)\n- List of covered equipment or upcoming procurement needs\n- Budget approval process and decision timeline\n\nIf you need to reschedule or have any questions, please don't hesitate to reach out. Otherwise, talk to you tomorrow!\n\nBest regards,\n[Your Name]\nEvernex\n[Your Title]\n[Email] | [Phone]"},
+rem_2t:{subject:"Reminder: Partnership call tomorrow at [Time] \u2014 Evernex x [Company Name]",body:"Hi [Name],\n\nLooking forward to our partnership discussion tomorrow:\n\nMeeting Details:\n- Date: [Day, Month Date, Year]\n- Time: [Time + Timezone]\n- Duration: 20-30 minutes\n- Format: [Video call / In-person at Location]\n- Meeting Link: [Insert Link]\n\nAgenda:\n- Overview of Evernex's partner program and Third-Party Maintenance services\n- Understanding [Company Name]'s client base and current service offerings\n- How Evernex can help you increase margins with cost-efficient TPM solutions\n- Multivendor coverage in 165+ countries with local support\n- Partnership model: pricing structure, SLA options, and technical support\n- Identifying immediate opportunities with your existing clients\n- Next steps and onboarding process\n\nHelpful to Have Ready (if available):\n- Types of clients you serve (industries, geographies)\n- Current partners or vendors for data center maintenance\n- Any immediate client needs for EOL/EOSL hardware support\n\nIf you need to reschedule, just let me know. Otherwise, see you tomorrow!\n\nBest regards,\n[Your Name]\nEvernex\n[Your Title]\n[Email] | [Phone]"},
+
+pitch_cl:{body:"\"Good morning/afternoon [Name], this is [Your Name], Global Business Developer at Evernex.\n\nI'm reaching out because we help companies like [Company Name] reduce IT infrastructure costs significantly. Most organizations are overpaying for data center maintenance because OEMs force expensive refresh cycles and charge premium rates for EOL equipment support.\n\nEvernex specializes in Third-Party Maintenance for servers, storage, and network equipment. We help you save up to 70% on maintenance costs, defer CAPEX by extending hardware lifecycle, and consolidate all your vendors (HPE, Dell, IBM, Cisco, Huawei) under one contract with customized SLAs. We operate in 165+ countries and work with companies like Orange, TotalEnergies, and American Express.\n\nI'd love to schedule a quick 20-minute call to discuss how we can support [Company Name]'s IT strategy. Does [Day] or [Day] work better for you?\""},
+pitch_it:{body:"\"Hi [Name], this is [Your Name] from Evernex.\n\nI'm calling because we specialize in keeping data center hardware running long after OEMs stop supporting it. If you're managing EOL or EOSL servers, storage, or network equipment, we can help.\n\nEvernex provides Third-Party Maintenance with multivendor support (HPE, Dell, IBM, Cisco, Juniper, Huawei), customized SLAs up to 24x7 with 4-hour on-site response, and we have 800,000+ spare parts globally with L2 and L3 engineers ready to deploy. We cover 165+ countries.\n\nI'd love to schedule a 30-minute call to walk through how we support teams like yours. Does [Day] or [Day] work?\""},
+pitch_pr:{body:"\"Hi [Name], [Your Name] here, Global Business Developer at Evernex.\n\nI'm calling because we help procurement teams optimize IT maintenance budgets. If you're currently paying OEM rates for data center equipment maintenance, there's likely significant savings on the table.\n\nEvernex offers Third-Party Maintenance as a cost-efficient alternative, saving companies up to 70% on servers, storage, and network equipment. We consolidate multiple vendors under one contract, provide ISO 9001 certified processes, 1-year warranty on all parts, and help you defer CAPEX. We work with Capgemini, BNP Paribas, and Dubai Customs globally.\n\nI'd like to schedule a brief call to explore potential savings for [Company Name]. Does [Day] or [Day] work for you?\""},
+pitch_2t:{body:"\"Hi [Name], this is [Your Name] from Evernex.\n\nI'm reaching out because we partner with IT resellers like [Company Name] to help you increase your profit margins. If you have clients with EOL or EOSL data center equipment, we can help you offer them cost-efficient Third-Party Maintenance services.\n\nEvernex operates in 165+ countries and our pricing is up to 70% more cost-efficient than OEM, which means higher margins for you when you resell to your customers. We handle all the technical work (engineers, spare parts, SLAs), you manage the client relationship.\n\nI'd love to schedule a quick call to discuss how a partnership could work. Are you available [Day] or [Day]?\""},
+mom1:{subject:"Minutes of Meeting: [Company Name] x Evernex, [Date]",body:"Dear [Name],\n\nThank you for taking the time to meet with me today. It was a pleasure discussing how Evernex can support [Company Name]'s IT infrastructure needs.\n\nMeeting Summary:\n- Date: [Date]\n- Attendees: [Names and Titles]\n- Duration: [Duration]\n\nKey Discussion Points:\n1. [Company Name]'s current hardware maintenance approach and challenges with OEM contracts\n2. Evernex's Third-Party Maintenance offering for EOL/EOSL equipment (servers, storage, network)\n3. Potential cost savings of up to 70% vs. OEM, with CAPEX deferral and OPEX reduction\n4. Multivendor coverage (HPE, Dell, IBM, Cisco, Huawei, etc.) under one contract\n5. Customized SLAs tailored to [Company Name]'s needs\n\nNext Steps:\n- [Your Name] to send BOQ (Bill of Quantity) template to [Contact Name] by [Date]\n- [Contact Name] to share current equipment list and OEM contract details by [Date]\n- Schedule follow-up call on [Date] to review proposal\n\nAction Items:\n- [Your Name]: [Action 1], [Action 2]\n- [Contact Name]: [Action 1], [Action 2]\n\nPlease let me know if I missed anything or if you'd like to add any points. Looking forward to our next steps!\n\nBest regards,\n[Your Name]\nEvernex\n[Your Title]\n[Email] | [Phone]"},
+mom2:{subject:"Quick recap: [Company Name] x Evernex call, [Date]",body:"Hi [Name],\n\nThanks for the call today! Here's a quick recap:\n\nDiscussed:\n- [Company Name]'s EOL/EOSL hardware maintenance needs\n- How Evernex can reduce costs by up to 70% with multivendor TPM\n- SLA options (24x7, 4-hour CTR, etc.)\n\nNext Steps:\n- I'll send over the BOQ template by [Date]\n- You'll share your equipment list by [Date]\n- Follow-up call scheduled for [Date & Time]\n\nLet me know if I missed anything. Talk soon!\n\nBest,\n[Your Name]"},
+fu_boq:{subject:"Following up: BOQ for [Company Name]",body:"Hi [Name],\n\nI hope this email finds you well. I wanted to follow up on the BOQ (Bill of Quantity) I sent on [Date] for [Company Name]'s Third-Party Maintenance needs.\n\nHave you had a chance to review it? I'm happy to walk through any questions or adjust the proposal to better fit your requirements.\n\nLooking forward to hearing from you.\n\nBest regards,\n[Your Name]"},
+fu_action:{subject:"Checking in: [Company Name] x Evernex next steps",body:"Hi [Name],\n\nI wanted to check in on the action items we discussed during our meeting on [Date]:\n\n- [Action Item 1]: [Status?]\n- [Action Item 2]: [Status?]\n\nI know things can get busy, just wanted to make sure this is still on your radar. If there's anything I can do to help move things forward, please let me know.\n\nHappy to reschedule our follow-up call if needed.\n\nBest regards,\n[Your Name]"},
+fu_final:{subject:"Re: [Company Name] x Evernex collaboration",body:"Hi [Name],\n\nI wanted to send one last follow-up on our conversation about Evernex's Third-Party Maintenance services for [Company Name].\n\nI understand priorities shift, if now isn't the right time, no problem at all. Feel free to reach out whenever it makes sense for [Company Name].\n\nI'm here whenever you need me.\n\nBest regards,\n[Your Name]"},
+fu_re:{subject:"Touching base: [Company Name] x Evernex",body:"Hi [Name],\n\nIt's been a while since we last connected. I wanted to reach out and see if anything has changed regarding [Company Name]'s IT maintenance strategy.\n\nIf there's a better time to reconnect, or if you'd like to revisit how Evernex can help reduce costs and extend hardware lifecycle, I'd be happy to schedule a call.\n\nHope all is well!\n\nBest regards,\n[Your Name]"}
+};
+function gConn(){return P==='twotier'?T.li_conn_2t:T.li_conn_eu}
+function gDM(){return{clevel:T.li_dm_cl,it:T.li_dm_it,proc:T.li_dm_pr,twotier:T.li_dm_2t}[P]}
+function gVoice(){return P==='twotier'?T.li_voice_2t:T.li_voice_eu}
+function gRem(){return{clevel:T.rem_cl,it:T.rem_it,proc:T.rem_pr,twotier:T.rem_2t}[P]}
+function gPitch(){return{clevel:T.pitch_cl,it:T.pitch_it,proc:T.pitch_pr,twotier:T.pitch_2t}[P]}
+
+const F={
+start:{q:"Who is your prospect?",bc:"Start",opts:[
+{t:"End User \u2014 C-Level (CEO, CIO, CTO, CFO)",n:"cl1",a:()=>P='clevel'},
+{t:"End User \u2014 IT Decision Maker (VP IT, IT Manager, Infrastructure)",n:"it1",a:()=>P='it'},
+{t:"End User \u2014 Procurement (Head of Procurement, IT Sourcing)",n:"pr1",a:()=>P='proc'},
+{t:"2-Tier \u2014 Sales / Account Managers",n:"tt1",a:()=>P='twotier'}]},
+
+cl1:{q:"Send this email and wait 3-5 business days. Did they respond?",bc:"C-Level \u2192 Email 1",em:"clevel_email1",w:"3-5 business days",opts:[
+{t:"\u2705 YES, INTERESTED \u2014 wants a meeting",n:"mtg"},{t:"\u23f0 YES, BUT NOT NOW",n:"pipe_later"},{t:"\ud83d\udce7 YES, SEND INFO first",n:"send_info"},
+{t:"\ud83d\udc64 YES, WRONG PERSON",n:"wrong_person"},{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE",n:"cl2"}]},
+cl2:{q:"Send this follow-up and wait 5-7 days. Did they respond?",bc:"C-Level \u2192 Email 2",em:"clevel_email2",w:"5-7 days",opts:[
+{t:"\u2705 YES, INTERESTED",n:"mtg"},{t:"\u23f0 YES, BUT NOT NOW",n:"pipe_later"},{t:"\ud83d\udce7 YES, SEND INFO",n:"send_info"},
+{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE",n:"cl3"}]},
+cl3:{q:"Send this final email and wait 5-7 days. Did they respond?",bc:"C-Level \u2192 Email 3 (Final)",em:"clevel_email3",w:"5-7 days",opts:[
+{t:"\u2705 YES, INTERESTED",n:"mtg"},{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE \u2014 try LinkedIn",n:"li_conn"}]},
+
+it1:{q:"Send this email and wait 3-5 business days. Did they respond?",bc:"IT Decision Maker \u2192 Email 1",em:"it_email1",w:"3-5 business days",opts:[
+{t:"\u2705 YES, INTERESTED \u2014 ready for technical call",n:"mtg"},{t:"\u23f0 YES, BUT NOT NOW",n:"pipe_later"},{t:"\ud83d\udce7 YES, SEND INFO",n:"send_info"},
+{t:"\ud83d\udc64 YES, WRONG PERSON",n:"wrong_person"},{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE",n:"it2"}]},
+it2:{q:"Send this follow-up and wait 5-7 days. Did they respond?",bc:"IT Decision Maker \u2192 Email 2",em:"it_email2",w:"5-7 days",opts:[
+{t:"\u2705 YES, INTERESTED",n:"mtg"},{t:"\ud83d\udce7 YES, SEND INFO",n:"send_info"},{t:"\u23f0 YES, BUT NOT NOW",n:"pipe_later"},
+{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE",n:"it3"}]},
+it3:{q:"Send this final email and wait 5-7 days. Did they respond?",bc:"IT Decision Maker \u2192 Email 3 (Final)",em:"it_email3",w:"5-7 days",opts:[
+{t:"\u2705 YES, INTERESTED",n:"mtg"},{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE \u2014 try LinkedIn",n:"li_conn"}]},
+
+pr1:{q:"Send this email and wait 3-5 business days. Did they respond?",bc:"Procurement \u2192 Email 1",em:"proc_email1",w:"3-5 business days",opts:[
+{t:"\u2705 YES, INTERESTED \u2014 wants to review contracts",n:"mtg"},{t:"\u23f0 YES, BUT NOT NOW",n:"pipe_later"},{t:"\ud83d\udce7 YES, SEND INFO",n:"send_info"},
+{t:"\ud83d\udcc5 YES, WRONG TIMING \u2014 renewal not now",n:"wrong_timing"},{t:"\ud83d\udc64 YES, WRONG PERSON",n:"wrong_person"},
+{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE",n:"pr2"}]},
+pr2:{q:"Send this follow-up and wait 5-7 days. Did they respond?",bc:"Procurement \u2192 Email 2",em:"proc_email2",w:"5-7 days",opts:[
+{t:"\u2705 YES, INTERESTED",n:"mtg"},{t:"\ud83d\udce7 YES, SEND INFO",n:"send_info"},{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE",n:"pr3"}]},
+pr3:{q:"Send this final email and wait 5-7 days. Did they respond?",bc:"Procurement \u2192 Email 3 (Final)",em:"proc_email3",w:"5-7 days",opts:[
+{t:"\u2705 YES, INTERESTED",n:"mtg"},{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE \u2014 try LinkedIn",n:"li_conn"}]},
+
+tt1:{q:"Send this email and wait 3-5 business days. Did they respond?",bc:"2-Tier Sales \u2192 Email 1",em:"twotier_email1",w:"3-5 business days",opts:[
+{t:"\u2705 YES, INTERESTED \u2014 wants partnership call",n:"mtg"},{t:"\ud83d\udce7 YES, SEND INFO \u2014 wants partner details",n:"send_info"},
+{t:"\ud83e\udd1d YES, ALREADY HAVE PARTNER",n:"pipe_comp"},{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE",n:"tt2"}]},
+tt2:{q:"Send this follow-up and wait 5-7 days. Did they respond?",bc:"2-Tier Sales \u2192 Email 2",em:"twotier_email2",w:"5-7 days",opts:[
+{t:"\u2705 YES, INTERESTED",n:"mtg"},{t:"\ud83d\udce7 YES, SEND INFO",n:"send_info"},{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE",n:"tt3"}]},
+tt3:{q:"Send this final email and wait 5-7 days. Did they respond?",bc:"2-Tier Sales \u2192 Email 3 (Final)",em:"twotier_email3",w:"5-7 days",opts:[
+{t:"\u2705 YES, INTERESTED",n:"mtg"},{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE \u2014 try LinkedIn",n:"li_conn"}]},
+
+li_conn:{q:"Send a LinkedIn connection request. What happened?",bc:"Alternative \u2192 LinkedIn",liConn:1,opts:[
+{t:"\u2705 ACCEPTED",n:"li_dm"},{t:"\u23f3 STILL PENDING after 7 days",n:"li_pend"},{t:"\u274c DECLINED",n:"li_decl"}]},
+li_dm:{q:"Wait 24h, then send this LinkedIn DM. Wait 3-5 days. Did they respond?",bc:"LinkedIn \u2192 DM Sent",liDM:1,opts:[
+{t:"\u2705 YES, INTERESTED",n:"mtg"},{t:"\ud83d\udce7 YES, SEND INFO",n:"send_info"},{t:"\u274c NO, NOT INTERESTED",n:"lost"},{t:"\ud83d\udd07 NO RESPONSE \u2014 try voice message",n:"li_voice"}]},
+li_voice:{q:"Send a LinkedIn voice message (30-45 sec). Wait 3 days. Did they respond?",bc:"LinkedIn \u2192 Voice Message",liVoice:1,opts:[
+{t:"\u2705 YES \u2014 schedule meeting",n:"mtg"},{t:"\ud83d\udd07 NO RESPONSE",n:"cold"}]},
+li_pend:{r:1,s:"\ud83d\udce7 TRY PHONE",ti:"LinkedIn Pending \u2014 Try Phone",c:"<strong>Actions:</strong><ul><li>Try a phone call using the Elevator Pitch below</li><li>If no phone number, restart with Email 1</li><li>Keep LinkedIn pending (they may accept later)</li></ul><strong>Update CRM:</strong> Note: LinkedIn pending"},
+li_decl:{r:1,s:"\ud83d\udce7 TRY PHONE",ti:"LinkedIn Declined \u2014 Try Phone",c:"<strong>Actions:</strong><ul><li>Try a phone call using the Elevator Pitch below</li><li>If no phone, set 6-month re-engagement reminder</li></ul><strong>Update CRM:</strong> Note: LinkedIn declined"},
+
+mtg:{q:"Meeting booked! Here are all your templates for the meeting lifecycle.",bc:"\u2705 Meeting Booked",mtgBooked:1,opts:[
+{t:"\u25b6 THEY ATTENDED the meeting",n:"mtg_ok"},{t:"\ud83d\udd04 THEY RESCHEDULED",n:"mtg_resch"},
+{t:"\u26a0\ufe0f LATE CANCELLATION (< 2 hours before)",n:"mtg_cancel"},{t:"\u274c THEY NO-SHOWED",n:"mtg_no"}]},
+
+mtg_ok:{q:"Great! Meeting completed. Send MoM within 24 hours.",bc:"Post-Meeting \u2192 MoM",mom:1,opts:[
+{t:"\u2705 BOQ SENT \u2014 waiting for response",n:"pm_boq"},{t:"\ud83d\udccb NEED MORE INFO from prospect",n:"pm_info"},{t:"\ud83c\udf89 DEAL PROGRESSING",n:"opp"}]},
+pm_boq:{q:"BOQ sent. Wait 3-5 days. Did they respond?",bc:"Post-Meeting \u2192 BOQ Follow-up",fu:"fu_boq",w:"3-5 days",opts:[
+{t:"\u2705 YES \u2014 progressing",n:"opp"},{t:"\ud83d\udd07 NO RESPONSE \u2014 send action reminder",n:"pm_act"}]},
+pm_act:{q:"Send this action reminder. Wait 5-7 days. Did they respond?",bc:"Post-Meeting \u2192 Action Reminder",fu:"fu_action",w:"5-7 days",opts:[
+{t:"\u2705 YES \u2014 progressing",n:"opp"},{t:"\ud83d\udd07 NO RESPONSE \u2014 send final reminder",n:"pm_final"}]},
+pm_final:{q:"Send this final reminder. Wait 10-14 days. Did they respond?",bc:"Post-Meeting \u2192 Final Reminder",fu:"fu_final",w:"10-14 days",opts:[
+{t:"\u2705 YES \u2014 progressing",n:"opp"},{t:"\ud83d\udd07 NO RESPONSE \u2014 set 30-day re-engagement",n:"pm_re"}]},
+pm_re:{r:1,s:"\u23f0 RE-ENGAGE",ti:"Set 30-Day Re-Engagement",c:"<strong>Actions:</strong><ul><li>Set CRM reminder for 30 days</li><li>When triggered, use Re-Engagement template below</li></ul><strong>Update CRM:</strong> Status = PIPELINE (Re-Engagement)"},
+pm_info:{r:1,s:"\u23f0 PIPELINE",ti:"Need More Info From Prospect",c:"<strong>Actions:</strong><ul><li>Send follow-up listing specific info needed</li><li>Set 3-day reminder</li><li>If no response after 7 days, use Action Reminder template</li></ul><strong>Update CRM:</strong> Status = PIPELINE (Awaiting Info)"},
+opp:{r:1,s:"\ud83c\udfaf OPPORTUNITY",ti:"Deal in Progress!",c:"<strong>Actions:</strong><ul><li>Track in CRM as OPPORTUNITY</li><li>Follow up weekly until decision</li><li>Prepare detailed proposal/BOQ</li></ul><strong>Update CRM:</strong> Status = OPPORTUNITY"},
+mtg_resch:{r:1,s:"\ud83d\udd04 PIPELINE",ti:"Meeting Rescheduled",c:"<strong>Actions:</strong><ul><li>Confirm new time immediately</li><li>Send new calendar invite</li><li>Send 24h Meeting Reminder before new date</li></ul><strong>Update CRM:</strong> Status = PIPELINE (Rescheduled)"},
+mtg_cancel:{r:1,s:"\u23f0 PIPELINE",ti:"Late Cancellation",c:"<strong>Actions:</strong><ul><li>Express understanding</li><li>Offer to reschedule immediately</li><li>If no \u2192 ask \"When's better?\" and set reminder</li></ul><strong>Update CRM:</strong> Status = PIPELINE"},
+mtg_no:{r:1,s:"\u26a0\ufe0f FOLLOW UP",ti:"No-Show \u2014 Send Follow-Up",c:"<strong>Actions:</strong><ul><li>Wait 15 min past start time</li><li>Send polite email: \"Missed you today, still interested?\"</li><li>Response Yes \u2192 Reschedule</li><li>Response No \u2192 Close - Lost</li><li>No response 3 days \u2192 Set 3-month reminder \u2192 COLD</li></ul><strong>Update CRM:</strong> Note: No-Show"},
+
+pipe_later:{r:1,s:"\u23f0 PIPELINE",ti:"Pipeline \u2014 Follow Up Later",c:"<strong>Actions:</strong><ul><li>Ask: \"When should I follow up?\"</li><li>Set reminder in CRM for agreed date</li><li>Note reason for delay</li></ul><strong>Update CRM:</strong> Status = PIPELINE"},
+send_info:{r:1,s:"\ud83d\udce7 PIPELINE",ti:"Send Information Package",c:"<strong>Actions:</strong><ul><li>Send case study + value proposition relevant to persona</li><li>Set follow-up reminder for 3 days</li><li>After 3 days: \"Have you had a chance to review?\"</li></ul><strong>Update CRM:</strong> Status = PIPELINE (Info Sent)"},
+wrong_person:{r:1,s:"\ud83d\udd04 REDIRECT",ti:"Wrong Person \u2014 Get Referral",c:"<strong>Actions:</strong><ul><li>Ask: \"Who should I speak with?\"</li><li>Request introduction or contact info</li><li>Thank them</li><li>Start over with correct persona path</li></ul><strong>Update CRM:</strong> Create new contact, restart flow"},
+wrong_timing:{r:1,s:"\ud83d\udcc5 PIPELINE",ti:"Wrong Timing \u2014 Renewal Not Now",c:"<strong>Actions:</strong><ul><li>Ask: \"When's your renewal period?\"</li></ul><strong>Set Reminder:</strong><ul><li>Renewal < 3 months \u2192 Follow up in 2 weeks</li><li>3-6 months \u2192 Reminder 2 months before</li><li>> 6 months \u2192 Reminder 3 months before</li></ul><strong>Update CRM:</strong> Status = PIPELINE, Note: Renewal = [DATE]"},
+pipe_comp:{r:1,s:"\ud83e\udd1d PIPELINE",ti:"Already Have Partner",c:"<strong>Actions:</strong><ul><li>Ask: \"Open to comparison?\"</li><li>Position as backup or brand specialist</li><li>Send competitive comparison</li><li>Set 3-6 month reminder</li></ul><strong>Update CRM:</strong> Status = PIPELINE (Competitor: [NAME])"},
+cold:{r:1,s:"\u2744\ufe0f COLD",ti:"Cold \u2014 Re-engage in 3 Months",c:"<strong>Actions:</strong><ul><li>Set CRM reminder for 3 months</li><li>Note all contact attempts</li></ul><strong>In 3 Months:</strong> Start fresh with Email 1, try different channel<br><strong>Update CRM:</strong> Status = COLD"},
+lost:{r:1,s:"\u274c CLOSED - LOST",ti:"Closed \u2014 Lost",c:"<strong>Actions:</strong><ul><li>Ask: \"May I ask why?\"</li><li>Note reason in CRM</li><li>Leave door open</li></ul><strong>Set Reminder:</strong> Re-engage in 6 months<br><strong>Update CRM:</strong> Status = CLOSED - LOST"}
+};
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function tb(id,t,lbl,cls){if(!t)return'';const hs=!!t.subject;return'<div class="tpl-box"><h3>'+lbl+'</h3>'+(hs?'<input class="tpl-subject" id="sub_'+id+'" value="'+esc(t.subject)+'">':'')+'<textarea class="tpl-body '+(cls||'')+'" id="body_'+id+'">'+t.body+'</textarea><div class="btn-row"><button class="copy-btn" onclick="cp(\''+id+'\','+hs+')">📋 Copy</button></div></div>'}
+function tg(tabs){const g='tg_'+Math.random().toString(36).substr(2,6);let th='<div class="tabs">',tc='';tabs.forEach((t,i)=>{th+='<div class="tab'+(i===0?' active':'')+'" onclick="st(\''+g+'\','+i+')">'+t.l+'</div>';tc+='<div class="tab-content'+(i===0?' active':'')+'" id="'+g+'_'+i+'">'+t.h+'</div>'});return th+'</div>'+tc}
+
+function render(id){
+const n=F[id];if(!n)return;hist.push(id);let h='';
+if(n.bc)h+='<div class="breadcrumb">\ud83d\udccd '+n.bc+'</div>';
+if(n.r){
+h+='<div class="result-box"><div class="result-title">'+n.ti+'</div><div class="result-content">'+n.c+'<div class="status-badge">'+n.s+'</div></div></div>';
+if(id==='li_pend'||id==='li_decl'){const p=gPitch();if(p)h+=tb('pitch',p,'\ud83c\udfa4 Elevator Pitch (for phone call)','tall')}
+if(id==='pm_re')h+=tb('re',T.fu_re,'\ud83d\udce7 Re-Engagement Email (send in 30 days)','');
+h+='<button class="restart-btn" onclick="restart()">\ud83d\udd04 Start New Prospection</button>';
+}else{
+h+='<div class="question">'+n.q+'</div>';
+let tabs=[];
+if(n.em&&T[n.em])tabs.push({l:'\ud83d\udce7 Email',h:tb('em',T[n.em],'Email Template (editable \u2014 modify and copy)','')});
+if(n.fu&&T[n.fu])tabs.push({l:'\ud83d\udce7 Follow-Up',h:tb('fu',T[n.fu],'Follow-Up Template (editable)','')});
+if(n.liConn)tabs.push({l:'\ud83d\udd17 Connection',h:tb('lc',gConn(),'LinkedIn Connection Note (~300 chars)','short')});
+if(n.liDM){const d=gDM();if(d)tabs.push({l:'\ud83d\udcac LinkedIn DM',h:tb('ld',d,'LinkedIn Direct Message (editable)','')})}
+if(n.liVoice){const v=gVoice();if(v)tabs.push({l:'\ud83c\udf99\ufe0f Voice Script',h:tb('lv',v,'Voice Message Script (30-45 sec)','short')})}
+if(n.mtgBooked){
+const r=gRem();if(r)tabs.push({l:'\u23f0 24h Reminder',h:tb('rem',r,'Send 24 hours before the meeting','tall')});
+tabs.push({l:'\ud83d\udccb MoM (Standard)',h:tb('m1',T.mom1,'Standard Minutes of Meeting \u2014 send within 24h','tall')});
+tabs.push({l:'\ud83d\udccb MoM (Short)',h:tb('m2',T.mom2,'Short MoM \u2014 for quick calls','')});
+tabs.push({l:'\ud83d\udce7 BOQ Follow-Up',h:tb('f1',T.fu_boq,'Send 3-5 days after BOQ','')});
+tabs.push({l:'\ud83d\udce7 Action Reminder',h:tb('f2',T.fu_action,'Send 5-7 days after MoM','')});
+tabs.push({l:'\ud83d\udce7 Final Reminder',h:tb('f3',T.fu_final,'Send 10-14 days after last contact','')});
+tabs.push({l:'\ud83d\udce7 Re-Engagement',h:tb('f4',T.fu_re,'Send after 30+ days of silence','')});
+}
+if(n.mom){tabs.push({l:'\ud83d\udccb MoM (Standard)',h:tb('m1',T.mom1,'Standard Minutes of Meeting (editable)','tall')});tabs.push({l:'\ud83d\udccb MoM (Short)',h:tb('m2',T.mom2,'Short MoM \u2014 for quick calls','')});}
+if(tabs.length)h+=tg(tabs);
+if(n.w)h+='<div class="wait-notice">\u23f0 Wait '+n.w+' after sending</div>';
+h+='<div class="options">';n.opts.forEach(o=>{h+='<button class="option-btn" onclick="nav(\''+o.n+'\')">'+o.t+'</button>'});h+='</div>';
+if(hist.length>1)h+='<button class="restart-btn" onclick="restart()">\ud83d\udd04 Start Over</button>';
+}
+A.innerHTML=h;
+}
+
+function nav(id){
+const pn=F[hist[hist.length-1]];
+if(pn&&pn.opts){const o=pn.opts.find(x=>x.n===id);if(o&&o.a)o.a()}
+render(id);window.scrollTo(0,0);
+}
+function restart(){hist=[];P='';render('start');window.scrollTo(0,0)}
+function cp(id,hs){
+const b=document.getElementById('body_'+id),s=hs?document.getElementById('sub_'+id):null;
+const t=(s?'Subject: '+s.value+'\n\n':'')+b.value;
+navigator.clipboard.writeText(t).then(()=>{event.target.textContent='\u2713 Copied!';setTimeout(()=>{event.target.textContent='\ud83d\udccb Copy'},1500)});
+}
+function st(g,idx){
+const fc=document.getElementById(g+'_0');if(!fc)return;
+let el=fc,ci=0;while(el){if(el.classList.contains('tab-content')){el.classList.toggle('active',ci===idx);ci++}el=el.nextElementSibling}
+const tb=fc.previousElementSibling;if(tb&&tb.classList.contains('tabs'))Array.from(tb.children).forEach((t,i)=>t.classList.toggle('active',i===idx));
+}
+render('start');
+</script>
 </body>
 </html>
