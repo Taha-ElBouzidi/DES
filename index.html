@@ -278,7 +278,7 @@
       let hist = [],
         P = "";
       const T = {
-        clevel_email1:{subject:"[Company Name]'s EOL equipment: extending lifecycle vs. refresh?",body:"Dear [Name],\\n\\nI hope your day is going well.\\n\\nI am [Your Name], Global Business Developer at Evernex. I am reaching out to schedule a brief call to explore a potential collaboration between [Company Name] and Evernex.\\n\\nEvernex is the global leader in Third-Party Maintenance for data center equipment (servers, storage, and network), covering EOL and EOSL hardware across 165+ countries. We helped companies like Orange reduce maintenance costs by 70% on their EOL Cisco/HPE infrastructure across 18 countries—same SLAs, significantly more cost-efficient.\\n\\nWe help organizations like yours:\\n- Reduce maintenance costs by up to 70% compared to OEM contracts\\n- Defer CAPEX by extending hardware lifecycle instead of forced refresh cycles\\n- Consolidate vendors under one multivendor contract (HPE, Dell, IBM, Cisco, Huawei, and more)\\n\\nWould you be available for a 20-minute call this week? I'm free Tuesday at 2pm or Wednesday at 10am (or share your availability).\\n\\nLooking forward to hearing from you.\\n\\nBest regards,\\n[Your Name]\\n[Calendar Link]"},
+        clevel_email1:{subject:"[Company Name]'s EOL equipment: extending lifecycle vs. refresh?",body:"Dear [Name],\n\nI hope your day is going well.\n\nI am [Your Name], Global Business Developer at Evernex. I am reaching out to schedule a brief call to explore a potential collaboration between [Company Name] and Evernex.\n\nEvernex is the global leader in Third-Party Maintenance for data center equipment (servers, storage, and network), covering EOL and EOSL hardware across 165+ countries. We helped companies like Orange reduce maintenance costs by 70% on their EOL Cisco/HPE infrastructure across 18 countries—same SLAs, significantly more cost-efficient.\n\nWe help organizations like yours:\n- Reduce maintenance costs by up to 70% compared to OEM contracts\n- Defer CAPEX by extending hardware lifecycle instead of forced refresh cycles\n- Consolidate vendors under one multivendor contract (HPE, Dell, IBM, Cisco, Huawei, and more)\n\nWould you be available for a 20-minute call this week? I'm free Tuesday at 2pm or Wednesday at 10am (or share your availability).\n\nLooking forward to hearing from you.\n\nBest regards,\n[Your Name]\n[Calendar Link]"},
         clevel_email2: {
           subject: "Re: [Company Name]'s EOL equipment: extending lifecycle vs. refresh?",
           body: "Dear [Name],\n\nI hope you are having a productive week.\n\nQuick question: Is [Company Name] still locked into 3-4 year OEM refresh cycles, or are you exploring options to extend hardware lifecycle?\n\nAt Evernex, we help IT leaders move from costly OEM contracts to flexible, cost-efficient maintenance, saving up to 70% while maintaining the same level of service with SLAs up to 4-hour response times.\n\nWould a 15-minute call work for you this week? I'm free Thursday at 3pm or Friday at 11am.\n\nBest regards,\n[Your Name]",
@@ -905,6 +905,43 @@
                 "",
               ),
             });
+          // Add LinkedIn tab for email nodes
+          if (n.em && P) {
+            const conn = gConn();
+            const dm = gDM();
+            const voice = gVoice();
+            let liContent = "";
+            if (conn) {
+              liContent += tb(
+                "li_conn_tab",
+                conn,
+                "\ud83d\udd17 LinkedIn Connection Request (~300 chars)",
+                "short"
+              );
+            }
+            if (dm) {
+              liContent += tb(
+                "li_dm_tab",
+                dm,
+                "\ud83d\udcac LinkedIn Direct Message (send after connection accepted)",
+                ""
+              );
+            }
+            if (voice) {
+              liContent += tb(
+                "li_voice_tab",
+                voice,
+                "\ud83c\udf99\ufe0f LinkedIn Voice Message Script (30-45 sec)",
+                "short"
+              );
+            }
+            if (liContent) {
+              tabs.push({
+                l: "\ud83d\udc64 LinkedIn",
+                h: liContent,
+              });
+            }
+          }
           if (n.fu && T[n.fu])
             tabs.push({
               l: "\ud83d\udce7 Follow-Up",
